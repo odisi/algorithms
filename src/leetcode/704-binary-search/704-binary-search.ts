@@ -3,11 +3,7 @@ export class BinarySearch {
   // Complexity: O(log n)
   // Space: O(1)
 
-  search(nums: number[], target: number): number {
-    let startIndex = 0;
-
-    let endIndex = nums.length - 1;
-
+  execute(nums: number[], target: number, startIndex: number = 0, endIndex: number = nums.length - 1): number {
     while (startIndex <= endIndex) {
       const middleIndex = Math.floor(startIndex + (endIndex - startIndex) / 2);
 
@@ -26,7 +22,3 @@ export class BinarySearch {
     return -1;
   }
 }
-
-0 - 10
-
-0 + (10 - 0) / 2
