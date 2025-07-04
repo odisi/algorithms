@@ -1,9 +1,9 @@
 import { Node } from './node';
 
 export class LinkedList<T> {
-  private head: Node<T> | null = null;
-  private _size: number = 0;
-  private tail: Node<T> | null = null;
+  protected head: Node<T> | null = null;
+  protected _size: number = 0;
+  protected tail: Node<T> | null = null;
 
   addAtHead(value: T): void {
     const node = new Node<T>(value);

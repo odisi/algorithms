@@ -1,46 +1,76 @@
 import { expect, test } from "vitest";
 import { LinkedList } from "./linked-list";
 
-const obj = new LinkedList<number>();
+test("Should return correct values when removing at head and tail", () => {
+  const list = new LinkedList<number>();
 
-test("Should return size of linked list", () => {
-  obj.addAtHead(10);
+  list.addAtHead(1);
 
-  expect(obj.size).toEqual(1);
+  list.addAtTail(2);
 
-  obj.addAtHead(14);
+  list.addAtTail(3);
 
-  expect(obj.size).toEqual(2);
+  expect(list.removeAtHead()).toBe(1);
 
-  obj.addAtTail(20);
+  expect(list.removeAtTail()).toBe(3);
 
-  expect(obj.size).toEqual(3);
+  expect(list.removeAtHead()).toBe(2);
 
-  obj.addAtTail(19);
+  expect(list.removeAtHead()).toBeNull();
 
-  expect(obj.size).toEqual(4);
+  expect(list.removeAtTail()).toBeNull();
+});
 
-  obj.removeAtHead();
+test("Should handle string values", () => {
+  const list = new LinkedList<string>();
 
-  expect(obj.size).toEqual(3);
+  list.addAtHead("a");
 
-  obj.removeAtHead();
+  list.addAtTail("b");
 
-  expect(obj.size).toEqual(2);
+  expect(list.size).toBe(2);
 
-  obj.removeAtTail();
+  expect(list.removeAtHead()).toBe("a");
 
-  expect(obj.size).toEqual(1);
+  expect(list.removeAtTail()).toBe("b");
 
-  obj.removeAtTail();
+  expect(list.size).toBe(0);
+});
 
-  expect(obj.size).toEqual(0);
+test("Should handle single element list correctly", () => {
+  const list = new LinkedList<number>();
 
-  obj.removeAtTail();
+  list.addAtHead(42);
 
-  expect(obj.size).toEqual(0);
+  expect(list.size).toBe(1);
 
-  obj.removeAtHead();
-  
-  expect(obj.size).toEqual(0);
+  expect(list.removeAtTail()).toBe(42);
+
+  expect(list.size).toBe(0);
+
+  expect(list.removeAtHead()).toBeNull();
+
+  expect(list.removeAtTail()).toBeNull();
+});
+
+test("Should handle multiple add and remove operations", () => {
+  const list = new LinkedList<number>();
+
+  for (let i = 0; i < 5; i++) {
+    list.addAtTail(i);
+  }
+
+  expect(list.size).toBe(5);
+
+  expect(list.removeAtHead()).toBe(0);
+
+  expect(list.removeAtTail()).toBe(4);
+
+  expect(list.removeAtHead()).toBe(1);
+
+  expect(list.removeAtTail()).toBe(3);
+
+  expect(list.removeAtHead()).toBe(2);
+
+  expect(list.size).toBe(0);
 });
