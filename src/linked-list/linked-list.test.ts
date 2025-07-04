@@ -74,3 +74,71 @@ test("Should handle multiple add and remove operations", () => {
 
   expect(list.size).toBe(0);
 });
+
+test("Should invert an empty list", () => {
+  const list = new LinkedList<number>();
+
+  list.invert();
+
+  // Helper to collect values
+  const values: number[] = [];
+  
+  // @ts-ignore
+  let node = list.head;
+
+  while (node) {
+    values.push(node.value);
+
+    node = node.next;
+  }
+
+  expect(values).toEqual([]);
+
+  expect(list.size).toBe(0);
+});
+
+test("Should invert a single-element list", () => {
+  const list = new LinkedList<number>();
+
+  list.addAtHead(42);
+
+  list.invert();
+
+  const values: number[] = [];
+  
+  // @ts-ignore
+  let node = list.head;
+
+  while (node) {
+    values.push(node.value);
+
+    node = node.next;
+  }
+
+  expect(values).toEqual([42]);
+
+  expect(list.size).toBe(1);
+});
+
+test("Should invert a multi-element list", () => {
+  const list = new LinkedList<number>();
+
+  [1, 2, 3, 4, 5].forEach((v) => list.addAtTail(v));
+
+  list.invert();
+
+  const values: number[] = [];
+
+  // @ts-ignore
+  let node = list.head;
+
+  while (node) {
+    values.push(node.value);
+
+    node = node.next;
+  }
+
+  expect(values).toEqual([5, 4, 3, 2, 1]);
+
+  expect(list.size).toBe(5);
+});

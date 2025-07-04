@@ -37,6 +37,22 @@ export class LinkedList<T> {
     this._size++;
   }
 
+  invert(): void {
+    let newHead: Node<T> | null = null;
+
+    while (this.head !== null) {
+      let nextNode: Node<T> | null = this.head.next;
+
+      this.head!.setNext(newHead);
+
+      newHead = this.head;
+
+      this.head = nextNode;
+    }
+
+    this.head = newHead;
+  }
+
   removeAtHead(): T | null {
     if (this.head === null) {
       return null;
