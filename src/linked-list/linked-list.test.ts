@@ -184,3 +184,82 @@ test("Should return the second middle node for even number of elements", () => {
 
   expect(middle!.value).toBe(4);
 });
+
+test("Should return false for a list with no cycle", () => {
+  const list = new LinkedList<number>();
+
+  [1, 2, 3, 4, 5].forEach((v) => list.addAtTail(v));
+
+  expect(list.hasCycle()).toBe(false);
+});
+
+test("Should return true for a list with a simple cycle (tail connects to head)", () => {
+  const list = new LinkedList<number>();
+
+  [1, 2, 3, 4, 5].forEach((v) => list.addAtTail(v));
+
+  // @ts-ignore
+  let head = list.head;
+
+  // @ts-ignore
+  let tail = list.tail;
+  
+  if (tail && head) {
+    tail.setNext(head);
+  }
+
+  expect(list.hasCycle()).toBe(true);
+});
+
+test("Should return true for a list with a cycle in the middle", () => {
+  const list = new LinkedList<number>();
+
+  [1, 2, 3, 4, 5].forEach((v) => list.addAtTail(v));
+
+  // @ts-ignore
+  let head = list.head;
+
+  // Find the third node
+  let third = head;
+  
+  for (let i = 0; i < 2 && third; i++) {
+    third = third.next;
+  }
+  
+  // @ts-ignore
+  let tail = list.tail;
+  
+  if (tail && third) {
+    tail.setNext(third);
+  }
+
+  expect(list.hasCycle()).toBe(true);
+});
+
+test("Should return false for an empty list (no node)", () => {
+  const list = new LinkedList<number>();
+
+  expect(list.hasCycle()).toBe(false);
+});
+
+test("Should return false for a single node (no cycle)", () => {
+  const list = new LinkedList<number>();
+
+  list.addAtHead(42);
+
+  expect(list.hasCycle()).toBe(false);
+});
+
+test("Should return true for a single node with a cycle (node points to itself)", () => {
+  const list = new LinkedList<number>();
+
+  list.addAtHead(99);
+
+  // @ts-ignore
+  if (list.head) {
+    // @ts-ignore
+    list.head.setNext(list.head);
+  }
+
+  expect(list.hasCycle()).toBe(true);
+});

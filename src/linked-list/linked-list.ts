@@ -37,6 +37,22 @@ export class LinkedList<T> {
     this._size++;
   }
 
+  hasCycle(): boolean {
+    let slow: Node<T> | null = this.head;
+    let fast: Node<T> | null = this.head;
+
+    while (fast != null && fast.next != null) {
+      fast = fast.next.next;
+      slow = slow!.next;
+
+      if(fast === slow) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   invert(): void {
     let newHead: Node<T> | null = null;
 

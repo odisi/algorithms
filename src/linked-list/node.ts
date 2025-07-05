@@ -1,12 +1,12 @@
 export class Node<T> {
-  value: T;
   next: Node<T> | null;
   previous: Node<T> | null;
+  value: T;
 
   constructor(value: T) {
-    this.value = value
     this.next = null;
     this.previous = null;
+    this.value = value
   }
 
   setNext(node: Node<T> | null): void {
