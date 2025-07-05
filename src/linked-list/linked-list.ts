@@ -55,6 +55,19 @@ export class LinkedList<T> {
     this.head = newHead;
   }
 
+  middle(): Node<T> | null {
+    let slow: Node<T> | null = this.head;
+    let fast: Node<T> | null = this.head;
+
+    while(fast != null && fast.next != null) {
+      fast = fast.next.next;
+
+      slow = slow!.next;
+    }
+
+    return slow;
+  }
+
   removeAtHead(): T | null {
     if (this.head === null) {
       return null;

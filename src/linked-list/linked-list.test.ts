@@ -142,3 +142,45 @@ test("Should invert a multi-element list", () => {
 
   expect(list.size).toBe(5);
 });
+
+test("Should return null for middle of empty list", () => {
+  const list = new LinkedList<number>();
+
+  expect(list.middle()).toBeNull();
+});
+
+test("Should return the only node for single element list", () => {
+  const list = new LinkedList<number>();
+
+  list.addAtHead(42);
+
+  const middle = list.middle();
+
+  expect(middle).not.toBeNull();
+
+  expect(middle!.value).toBe(42);
+});
+
+test("Should return the middle node for odd number of elements", () => {
+  const list = new LinkedList<number>();
+
+  [1, 2, 3, 4, 5].forEach((v) => list.addAtTail(v));
+
+  const middle = list.middle();
+
+  expect(middle).not.toBeNull();
+
+  expect(middle!.value).toBe(3);
+});
+
+test("Should return the second middle node for even number of elements", () => {
+  const list = new LinkedList<number>();
+
+  [1, 2, 3, 4, 5, 6].forEach((v) => list.addAtTail(v));
+
+  const middle = list.middle();
+
+  expect(middle).not.toBeNull();
+
+  expect(middle!.value).toBe(4);
+});
