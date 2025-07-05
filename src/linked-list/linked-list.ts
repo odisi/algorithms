@@ -40,10 +40,12 @@ export class LinkedList<T> {
   invert(): void {
     let newHead: Node<T> | null = null;
 
-    while (this.head !== null) {
-      let nextNode: Node<T> | null = this.head.next;
+    this.tail = this.head;
 
-      this.head!.setNext(newHead);
+    while (this.head !== null) {
+      const nextNode: Node<T> | null = this.head.next;
+
+      this.head.setNext(newHead);
 
       newHead = this.head;
 
