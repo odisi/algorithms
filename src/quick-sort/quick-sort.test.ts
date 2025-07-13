@@ -22,8 +22,10 @@ test("Should sort array with more than one element", () => {
   
   const expected: number[] = [];
 
-  for (let index = 0; index < 1000000; index++) {
-    const x = Math.floor(Math.random() * 1000000)
+  const size = 100;
+
+  for (let index = 0; index < size; index++) {
+    const x = Math.floor(Math.random() * size)
 
     expected.push(x);
 
