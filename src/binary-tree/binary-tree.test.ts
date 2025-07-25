@@ -52,3 +52,21 @@ test("Should not find item in binary tree", () => {
 
   expect(rs).toBeNull();
 });
+
+test("Should find item by dfs in binary tree", () => {
+  const element = 9;
+
+  const expected: BinaryTreeNode<number> = new BinaryTreeNode(element);
+
+  const rs = binaryTree.findDFS(element);
+
+  expect(rs).toEqual(expected);
+});
+
+test("Should not find item by dfs in binary tree", () => {
+  const element = 2;
+
+  const rs = binaryTree.find(element);
+
+  expect(rs).toBeNull();
+});

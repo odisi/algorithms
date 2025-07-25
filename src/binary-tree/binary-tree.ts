@@ -15,6 +15,10 @@ export class BinaryTree<T> {
     return this.findNode(this.root, value);
   }
 
+  findDFS(value: T): BinaryTreeNode<T> | null {
+    return this.dfs(this.root, value);
+  }
+
   insert(value: T): void {
     if (this.root === null) {
       this.root = new BinaryTreeNode(value);
@@ -58,6 +62,24 @@ export class BinaryTree<T> {
 
     if (value < node.value) {
       return this.findNode(node.left, value);
+    }
+
+    return this.findNode(node.right, value);
+  }
+
+  private dfs(node: BinaryTreeNode<T> | null, value: T): BinaryTreeNode<T> | null {
+    if (node == null) {
+      return null;
+    }
+
+    if (value === node.value) {
+      return node;
+    }
+
+    const rs = this.findNode(node.left, value);
+
+    if (rs !== null) {
+      return rs;
     }
 
     return this.findNode(node.right, value);
