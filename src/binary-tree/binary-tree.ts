@@ -11,12 +11,60 @@ export class BinaryTreeNode<T> {
 export class BinaryTree<T> {
   private root: BinaryTreeNode<T> | null = null;
 
+  buildBinaryTree(values: T[]): BinaryTreeNode<T> | null {
+    if (values.length === 0) {
+      return null;
+    }
+
+    const root = new BinaryTreeNode<T>(values[0]);
+
+    const queue: BinaryTreeNode<T>[] = [root];
+
+    let i = 1;
+
+    while (i < values.length) {
+      const current = queue.shift()!;
+
+      // Add left child
+      if (i < values.length) {
+        if (values[i] !== null) {
+          current.left = new BinaryTreeNode(values[i]);
+
+          queue.push(current.left);
+        }
+
+        i++;
+      }
+
+      // Add right child
+      if (i < values.length) {
+        if (values[i] !== null) {
+          current.right = new BinaryTreeNode(values[i]);
+
+          queue.push(current.right);
+        }
+
+        i++;
+      }
+    }
+
+    return root;
+  }
+
   find(value: T): BinaryTreeNode<T> | null {
     return this.findNode(this.root, value);
   }
 
   findDFS(value: T): BinaryTreeNode<T> | null {
     return this.dfs(this.root, value);
+  }
+
+  hasPathSum(node: BinaryTreeNode<number | null> | null, targetSum: number): boolean {
+    if (node === null) {
+      return false;
+    }
+
+    return this._hasPathSum(node, 0, targetSum);
   }
 
   insert(value: T): void {
@@ -83,6 +131,26 @@ export class BinaryTree<T> {
     }
 
     return this.findNode(node.right, value);
+  }
+
+  private _hasPathSum(node: BinaryTreeNode<number | null> | null, currentSum: number, targetSum: number): boolean {
+    if (node != null) {
+      if (node.left == null && node.right == null && currentSum + node.value! === targetSum) {
+        return true;
+      }
+
+      if (currentSum + node.value! > targetSum) {
+        return false;
+      }
+
+      if (this._hasPathSum(node.left, currentSum + node.value!, targetSum)) {
+        return true;
+      }
+
+      return this._hasPathSum(node.right, currentSum + node.value!, targetSum);
+    }
+
+    return false;
   }
 
   private inOrder(rs: Array<T>, node: BinaryTreeNode<T> | null): void {
