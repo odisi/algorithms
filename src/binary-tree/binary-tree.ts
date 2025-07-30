@@ -75,6 +75,18 @@ export class BinaryTree<T> {
     }
   }
 
+  orderTraversal(node: BinaryTreeNode<number | null> | null): number[][] {
+    const rs: BinaryTreeNode<number | null>[][] = [];
+
+    if (node == null) {
+      return [];
+    }
+
+    this._orderTraversal([node], rs);
+
+    return rs.map(x => x.map(y => y.value!));
+  }
+
   traverseInOrder(): Array<T> {
     const rs = new Array<T>();
 
@@ -178,6 +190,28 @@ export class BinaryTree<T> {
       } else {
         this.insertNode(node.right, value);
       }
+    }
+  }
+
+  private _orderTraversal(nodes: BinaryTreeNode<number | null>[], rs: BinaryTreeNode<number | null>[][]) {
+    rs.push(nodes);
+
+    const aux = [];
+
+    for (let index = 0; index < nodes.length; index++) {
+      const node = nodes[index];
+
+      if (node.left) {
+        aux.push(node.left);
+      }
+
+      if (node.right) {
+        aux.push(node.right);
+      }
+    }
+
+    if (aux.length) {
+      this._orderTraversal(aux, rs);
     }
   }
 
