@@ -11,7 +11,7 @@ export class MergeSort {
       return [];
     }
 
-    if (leftIndex >= rightIndex) {
+    if (leftIndex == rightIndex) {
       return [elements[leftIndex]];
     }
 
