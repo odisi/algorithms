@@ -17,7 +17,7 @@ test("Should not sort array with just one element", () => {
   expect(rs).toEqual([10]);
 });
 
-test("Should not sort array with just two element", () => {
+test("Should sort array with just two element", () => {
   const elements: number[] = [10, 8];
 
   const rs = MergeSort.execute(elements);
@@ -25,7 +25,7 @@ test("Should not sort array with just two element", () => {
   expect(rs).toEqual([8, 10]);
 });
 
-test("Should not sort array with just three element", () => {
+test("Should sort array with just three element", () => {
   const elements: number[] = [10, 8, 9];
 
   const rs = MergeSort.execute(elements);
